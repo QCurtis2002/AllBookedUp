@@ -1,4 +1,5 @@
 ﻿using AllBookedUp.Server.Data;
+using AllBookedUp.Server.Services.ProductService;
 using AllBookedUp.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,9 @@ namespace AllBookedUp.Server.Controllers
     public class ProductController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IProductService _productService;
 
-        public ProductController(DataContext context)
+        public ProductController(DataContext context, IProductService productService)
         {
             _context = context;
         }
@@ -22,11 +24,7 @@ namespace AllBookedUp.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            var products = await _context.Products.ToListAsync();
-            var response = new ServiceResponse<List<Product>>
-            {
-                Data = products
-            };
+            var response = await _productService.GetProducts();
             return Ok(response);
         }
 
