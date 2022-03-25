@@ -27,7 +27,7 @@ namespace AllBookedUp.Server.Controllers
             {
                 Data = products
             };
-            return Ok(products);
+            return Ok(response);
         }
 
     }
