@@ -19,6 +19,7 @@ namespace AllBookedUp.Server.Controllers
         public ProductController(DataContext context, IProductService productService)
         {
             _context = context;
+            _productService = productService;
         }
 
         [HttpGet]
