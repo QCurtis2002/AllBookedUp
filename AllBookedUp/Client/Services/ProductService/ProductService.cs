@@ -20,7 +20,7 @@ namespace AllBookedUp.Client.Services.ProductService
 
         public List<Product> Products { get; set; } = new List<Product>();
 
-        public async Task GetProduct()
+        public async Task GetProducts()
         {
             var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
             Products = result.Data;
