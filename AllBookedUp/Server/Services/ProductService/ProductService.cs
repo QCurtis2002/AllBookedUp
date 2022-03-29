@@ -55,5 +55,18 @@ namespace AllBookedUp.Server.Services.ProductService
 
             return response;
         }
+
+        public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
+        {
+            var response = new ServiceResponse<List<Product>>
+            {
+                Data = await _context.Products
+                .Where(p => p.Title.ToLower().Contains(searchText.ToLower())
+                || p.Description.ToLower().Contains(searchText.ToLower()))
+                .ToListAsync()
+            };
+
+            return response;
+        }
     }
 }
