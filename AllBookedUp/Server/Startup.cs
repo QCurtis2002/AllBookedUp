@@ -1,4 +1,5 @@
 using AllBookedUp.Server.Data;
+using AllBookedUp.Server.Services.CategoryService;
 using AllBookedUp.Server.Services.ProductService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,7 @@ namespace AllBookedUp.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
