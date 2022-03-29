@@ -10,5 +10,6 @@ namespace AllBookedUp.Server.Services.ProductService
     {
         Task<ServiceResponse<List<Product>>> GetProducts();
         Task<ServiceResponse<Product>> GetProductById(int Id);
+        Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl);
     }
 }
