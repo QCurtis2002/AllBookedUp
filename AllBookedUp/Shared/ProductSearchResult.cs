@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AllBookedUp.Shared
 {
-    public class ProductSearchResultDTO
+    public class ProductSearchResult
     {
         public List<Product> Products { get; set; }
         public int Pages { get; set; }
