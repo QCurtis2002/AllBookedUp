@@ -18,6 +18,18 @@ namespace AllBookedUp.Server.Services.ProductService
             _context = context;
         }
 
+        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        {
+            var response = new ServiceResponse<List<Product>>
+            {
+                Data = await _context.Products
+                .Where(p => p.Featured)
+                .ToListAsync()
+            };
+
+            return response;
+        }
+
         public async Task<ServiceResponse<Product>> GetProductById(int id)
         {
             var response = new ServiceResponse<Product>();

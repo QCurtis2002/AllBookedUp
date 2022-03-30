@@ -33,7 +33,7 @@ namespace AllBookedUp.Client.Services.ProductService
         public async Task GetProducts(string categoryUrl = null)
         {
             var result = categoryUrl == null ?
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product") :
+                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product/featured") :
                 await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/Product/Category/{categoryUrl}");
             Products = result.Data;
             ProductsChanged.Invoke();
