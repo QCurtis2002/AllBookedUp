@@ -80,14 +80,14 @@ namespace AllBookedUp.Server.Services.ProductService
                 {
                     result.Add(product.Title);
                 }
-                
-                if(product.Description != null)
+
+                if (product.Description != null)
                 {
                     var punctuation = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
                     var words = product.Description.Split().Select(w => w.Trim(punctuation));
-                    foreach(var word in words)
+                    foreach (var word in words)
                     {
-                        if(word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
+                        if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
                         {
                             result.Add(word);
                         }
@@ -102,8 +102,13 @@ namespace AllBookedUp.Server.Services.ProductService
 
         public async Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int page)
         {
-            var pageResults = 2f;
+            var pageResults = 10f;
             var pageCount = Math.Ceiling((await FindProductsBySearchText(searchText)).Count / pageResults);
+
+            if(pageCount > 10)
+            {
+                pageCount = 10;
+            }
 
             var products = await _context.Products
                             .Where(p => p.Title.ToLower().Contains(searchText.ToLower())
