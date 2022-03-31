@@ -17,20 +17,20 @@ namespace AllBookedUp.Server.Data
                 new Category 
                 {
                     Id = 1,
-                    Name = "Books",
-                    Url = "books"
+                    Name = "Action",
+                    Url = "action"
                 },
                 new Category
                 {
                     Id = 2,
-                    Name = "Movies",
-                    Url = "movies"
+                    Name = "Classics",
+                    Url = "classics"
                 },
                 new Category 
                 {
                     Id = 3,
-                    Name = "Video Games",
-                    Url = "video-games"
+                    Name = "Mystery",
+                    Url = "mystery"
                 }
                 );
 
