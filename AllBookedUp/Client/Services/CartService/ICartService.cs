@@ -12,6 +12,5 @@ namespace AllBookedUp.Client.Services.CartService
         Task AddToCart(Product product);
         Task<List<CartItem>> GetCartItems();
         Task DeleteItem(CartItem item);
-        Task EmptyCart();
     }
 }

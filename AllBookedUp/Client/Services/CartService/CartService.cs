@@ -58,10 +58,33 @@ namespace AllBookedUp.Client.Services.CartService
                 var product = await _productService.GetProductById(item.Id);
                 var cartItem = new CartItem
                 {
-                    ProductId = product.Id,
-                    ProductTitle = product.Title
-                }
+                    ProductId = product.Data.Id,
+                    ProductTitle = product.Data.Title,
+                    Price = product.Data.Price,
+                    Image = product.Data.ImageUrl
+                };
+
+                result.Add(cartItem);
             }
+
+            return result;
+
+        }
+
+        public async Task DeleteItem(CartItem item)
+        {
+            var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
+            if (cart == null)
+            {
+                return;
+            }
+
+            var cartItem = cart.Find(x => x.Id == item.ProductId);
+            cart.Remove(cartItem);
+
+            await _localStorage.SetItemAsync("cart", cart);
+            OnChange.Invoke();
+
         }
     }
 }

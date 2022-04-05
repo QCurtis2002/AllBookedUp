@@ -5,9 +5,42 @@
 
 @if (cartItems == null || cartItems.Count <= 0)
 {
-<span>You have no items in your cart.</span>
+    <span>You have no items in your cart.</span>
+}
+else
+{
+    <div>
+        @foreach (var item in cartItems)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@item.Image" class="image" />
+                </div>
+                <div class="name">
+                    <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
+                </div>
+                <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Delete</button>
+                <div class="cart-product-price">£@item.Price</div>
+            </div>
+        }
+        <div class="cart-product-price">
+            Total (@cartItems.Count): £@cartItems.Sum(item => item.Price)
+        </div>
+    </div>
 }
 
 @code {
     List<CartItem> cartItems = new List<CartItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cartItems = await CartService.GetCartItems();
+    }
+
+    private async Task DeleteItem(CartItem item)
+    {
+        await CartService.DeleteItem(item);
+        cartItems = await CartService.GetCartItems();
+    }
+
 }
