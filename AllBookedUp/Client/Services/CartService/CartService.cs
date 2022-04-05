@@ -43,5 +43,25 @@ namespace AllBookedUp.Client.Services.CartService
             OnChange.Invoke();
 
         }
+
+        public async Task<List<CartItem>> GetCartItems()
+        {
+            var result = new List<CartItem>();
+            var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
+            if (cart == null)
+            {
+                return result;
+            }
+
+            foreach (var item in cart)
+            {
+                var product = await _productService.GetProductById(item.Id);
+                var cartItem = new CartItem
+                {
+                    ProductId = product.Id,
+                    ProductTitle = product.Title
+                }
+            }
+        }
     }
 }

@@ -10,5 +10,8 @@ namespace AllBookedUp.Client.Services.CartService
     {
         event Action OnChange;
         Task AddToCart(Product product);
+        Task<List<CartItem>> GetCartItems();
+        Task DeleteItem(CartItem item);
+        Task EmptyCart();
     }
 }

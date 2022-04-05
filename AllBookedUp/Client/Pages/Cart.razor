@@ -3,6 +3,11 @@
 
 <h3>Shopping Cart</h3>
 
+@if (cartItems == null || cartItems.Count <= 0)
+{
+<span>You have no items in your cart.</span>
+}
+
 @code {
-    List<>
+    List<CartItem> cartItems = new List<CartItem>();
 }
