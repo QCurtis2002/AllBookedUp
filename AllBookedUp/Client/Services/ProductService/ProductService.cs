@@ -30,12 +30,22 @@ namespace AllBookedUp.Client.Services.ProductService
 
         public event Action ProductsChanged;
 
+        /// <summary>
+        /// Get the product from just the Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<Product>> GetProductById(int id)
         {
             var result = await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/product/{id}");
             return result;
         }
 
+        /// <summary>
+        /// Get the products from the service response
+        /// </summary>
+        /// <param name="categoryUrl"></param>
+        /// <returns></returns>
         public async Task GetProducts(string categoryUrl = null)
         {
             var result = categoryUrl == null ?
@@ -51,6 +61,11 @@ namespace AllBookedUp.Client.Services.ProductService
             ProductsChanged.Invoke();
         }
 
+        /// <summary>
+        /// Get the search suggestions from the service response
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         public async Task<List<string>> GetProductSearchSuggestions(string searchText)
         {
             var result = await _http
@@ -59,6 +74,12 @@ namespace AllBookedUp.Client.Services.ProductService
             return result.Data;
         }
 
+        /// <summary>
+        /// Get the products from the searched text
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public async Task SearchProducts(string searchText, int page)
         {
             LastSearchText = searchText;

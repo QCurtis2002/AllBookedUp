@@ -35,17 +35,20 @@ else
 @code {
     List<CartItem> cartItems = new List<CartItem>();
 
+    //Load wishlist items to cartItems
     protected override async Task OnInitializedAsync()
     {
         cartItems = await WishlistService.GetWishlistItems();
     }
 
+    //Delete the item from the wishlist
     private async Task DeleteItem(CartItem item)
     {
         await WishlistService.DeleteItem(item);
         cartItems = await WishlistService.GetWishlistItems();
     }
 
+    //Add the item from wishlist to cart, removing the item from wishlist after
     private async Task AddItemToCart(CartItem item)
     {
         var result = await ProductService.GetProductById((item.ProductId));

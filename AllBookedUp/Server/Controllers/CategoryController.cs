@@ -20,6 +20,10 @@ namespace AllBookedUp.Server.Controllers
             _categoryService = categoryService;
         }
 
+        /// <summary>
+        /// Get categories from the categoryService
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Category>>>> GetCategories()
         {

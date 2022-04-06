@@ -18,6 +18,10 @@ namespace AllBookedUp.Server.Services.ProductService
             _context = context;
         }
 
+        /// <summary>
+        /// get the featured products from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
         {
             var response = new ServiceResponse<List<Product>>
@@ -30,6 +34,11 @@ namespace AllBookedUp.Server.Services.ProductService
             return response;
         }
 
+        /// <summary>
+        /// Get a product given the ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<Product>> GetProductById(int id)
         {
             var response = new ServiceResponse<Product>();
@@ -47,6 +56,10 @@ namespace AllBookedUp.Server.Services.ProductService
             return response;
         }
 
+        /// <summary>
+        /// Get a list of products from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<ServiceResponse<List<Product>>> GetProducts()
         {
             var products = await _context.Products.ToListAsync();
@@ -57,6 +70,11 @@ namespace AllBookedUp.Server.Services.ProductService
             return response;
         }
 
+        /// <summary>
+        /// Get a list of products by category from the database
+        /// </summary>
+        /// <param name="categoryUrl"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl)
         {
             var response = new ServiceResponse<List<Product>>
@@ -68,6 +86,11 @@ namespace AllBookedUp.Server.Services.ProductService
             return response;
         }
 
+        /// <summary>
+        /// Get Product search suggestions depending on what the title and description contains
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText)
         {
             var products = await FindProductsBySearchText(searchText);
@@ -100,6 +123,12 @@ namespace AllBookedUp.Server.Services.ProductService
 
         }
 
+        /// <summary>
+        /// Get the products that match search text
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int page)
         {
             var pageResults = 10f;
@@ -129,6 +158,11 @@ namespace AllBookedUp.Server.Services.ProductService
             return response;
         }
 
+        /// <summary>
+        /// Find the products that match the search text
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         private async Task<List<Product>> FindProductsBySearchText(string searchText)
         {
             return await _context.Products

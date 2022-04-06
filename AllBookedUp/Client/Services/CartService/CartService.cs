@@ -26,6 +26,11 @@ namespace AllBookedUp.Client.Services.CartService
             _productService = productService;
         }
 
+        /// <summary>
+        /// Add a product to the cart
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task AddToCart(Product product)
         {
             var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
@@ -43,6 +48,10 @@ namespace AllBookedUp.Client.Services.CartService
 
         }
 
+        /// <summary>
+        /// Get a list of items currently in the cart local storage
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<CartItem>> GetCartItems()
         {
             var result = new List<CartItem>();
@@ -70,6 +79,11 @@ namespace AllBookedUp.Client.Services.CartService
 
         }
 
+        /// <summary>
+        /// Delete a item from the cart
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public async Task DeleteItem(CartItem item)
         {
             var cart = await _localStorage.GetItemAsync<List<Product>>("cart");

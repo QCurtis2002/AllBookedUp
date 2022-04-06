@@ -20,6 +20,10 @@ namespace AllBookedUp.Server.Controllers
             _productService = productService;
         }
 
+        /// <summary>
+        /// Get products from the productService
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
@@ -27,6 +31,11 @@ namespace AllBookedUp.Server.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Get a product from the productService
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<Product>>> GetProductById(int id)
         {
@@ -34,6 +43,11 @@ namespace AllBookedUp.Server.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get a list of products belonging to category URL from productService
+        /// </summary>
+        /// <param name="categoryUrl"></param>
+        /// <returns></returns>
         [HttpGet("category/{categoryUrl}")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductsByCategory(string categoryUrl)
         {
@@ -41,6 +55,12 @@ namespace AllBookedUp.Server.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get search results from productService
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [HttpGet("search/{searchText}/{page}")]
         public async Task<ActionResult<ServiceResponse<ProductSearchResult>>> SearchProducts(string searchText, int page = 1)
         {
@@ -48,6 +68,11 @@ namespace AllBookedUp.Server.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get search suggestions from product service
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         [HttpGet("SearchSuggestions/{searchText}")]
         public async Task<ActionResult<ServiceResponse<List<string>>>> GetProductSearchSuggestions(string searchText)
         {
@@ -55,6 +80,10 @@ namespace AllBookedUp.Server.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get the featured products from the product service
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("featured")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetFeaturedProducts()
         {

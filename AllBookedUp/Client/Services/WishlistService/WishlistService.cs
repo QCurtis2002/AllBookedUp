@@ -24,6 +24,11 @@ namespace AllBookedUp.Client.Services.WishlistService
             _productService = productService;
         }
 
+        /// <summary>
+        /// Add the item to the wishlist local storage
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task AddToWishlist(Product product)
         {
             var wishlist = await _localStorage.GetItemAsync<List<Product>>("wishlist");
@@ -40,6 +45,10 @@ namespace AllBookedUp.Client.Services.WishlistService
 
         }
 
+        /// <summary>
+        /// The the items that are in the wishlist
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<CartItem>> GetWishlistItems()
         {
             var result = new List<CartItem>();
@@ -67,6 +76,11 @@ namespace AllBookedUp.Client.Services.WishlistService
 
         }
 
+        /// <summary>
+        /// Delete the item from the Wishlist local storage
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public async Task DeleteItem(CartItem item)
         {
             var wishlist = await _localStorage.GetItemAsync<List<Product>>("wishlist");

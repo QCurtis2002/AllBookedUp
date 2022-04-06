@@ -8,6 +8,10 @@
 </a>
 
 @code {
+    /// <summary>
+    /// get the number of products in the cart
+    /// </summary>
+    /// <returns></returns>
     private int GetProductCount()
     {
         var cart = LocalStorage.GetItem<List<Product>>("cart");
