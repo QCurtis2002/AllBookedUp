@@ -14,16 +14,17 @@ else
     <div>
         @foreach (var item in cartItems)
         {
-            <div class="container">
-                <div class="image-wrapper">
-                    <img src="@item.Image" class="image" />
-                </div>
-                <div class="name">
-                    <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
-                </div>
-                <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Remove from Wishlist</button>
-                <div class="cart-product-price">£@item.Price</div>
+        <div class="container">
+            <div class="image-wrapper">
+                <img src="@item.Image" class="image" />
             </div>
+            <div class="name">
+                <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
+            </div>
+            <button class="btn-delete" @onclick="@(() => AddItemToCart(item))">Add Item to Cart</button>
+            <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Remove from Wishlist</button>
+            <div class="cart-product-price">£@item.Price</div>
+        </div>
         }
         <div class="cart-product-price">
             Total (@cartItems.Count): £@cartItems.Sum(item => item.Price)
@@ -41,6 +42,16 @@ else
 
     private async Task DeleteItem(CartItem item)
     {
+        await WishlistService.DeleteItem(item);
+        cartItems = await WishlistService.GetWishlistItems();
+    }
+
+    private async Task AddItemToCart(CartItem item)
+    {
+        var result = await ProductService.GetProductById((item.ProductId));
+
+        await CartService.AddToCart(result.Data);
+
         await WishlistService.DeleteItem(item);
         cartItems = await WishlistService.GetWishlistItems();
     }

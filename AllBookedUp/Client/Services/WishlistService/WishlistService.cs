@@ -79,7 +79,6 @@ namespace AllBookedUp.Client.Services.WishlistService
             wishlist.Remove(cartItem);
 
             await _localStorage.SetItemAsync("wishlist", wishlist);
-
         }
     }
 }
