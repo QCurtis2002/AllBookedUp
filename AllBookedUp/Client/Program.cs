@@ -1,6 +1,7 @@
 using AllBookedUp.Client.Services.CartService;
 using AllBookedUp.Client.Services.CategoryService;
 using AllBookedUp.Client.Services.ProductService;
+using AllBookedUp.Client.Services.WishlistService;
 using Blazored.LocalStorage;
 using Blazored.Toast;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -26,6 +27,7 @@ namespace AllBookedUp.Client
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
 
