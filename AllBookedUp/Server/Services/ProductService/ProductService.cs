@@ -111,8 +111,7 @@ namespace AllBookedUp.Server.Services.ProductService
             }
 
             var products = await _context.Products
-                            .Where(p => p.Title.ToLower().Contains(searchText.ToLower())
-                            || p.Description.ToLower().Contains(searchText.ToLower()))
+                            .Where(p => p.Title.ToLower().Contains(searchText.ToLower()))
                             .Skip((page - 1) * (int)pageResults)
                             .Take((int)pageResults)
                             .ToListAsync();
@@ -133,8 +132,7 @@ namespace AllBookedUp.Server.Services.ProductService
         private async Task<List<Product>> FindProductsBySearchText(string searchText)
         {
             return await _context.Products
-                            .Where(p => p.Title.ToLower().Contains(searchText.ToLower())
-                            || p.Description.ToLower().Contains(searchText.ToLower()))
+                            .Where(p => p.Title.ToLower().Contains(searchText.ToLower()))
                             .ToListAsync();
         }
     }
