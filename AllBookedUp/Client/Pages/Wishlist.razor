@@ -3,7 +3,7 @@
 @inject ICartService CartService
 @inject IProductService ProductService
 
-<h3>Shopping Cart</h3>
+<h3>Wishlist</h3>
 
 @if (cartItems == null || cartItems.Count <= 0)
 {
@@ -21,7 +21,7 @@ else
             <div class="name">
                 <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
             </div>
-            <button class="btn-delete" @onclick="@(() => AddItemToCart(item))">Add Item to Cart</button>
+            <button style="padding-right:10px" class="btn-delete" @onclick="@(() => AddItemToCart(item))">Add Item to Cart</button>
             <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Remove from Wishlist</button>
             <div class="cart-product-price">£@item.Price</div>
         </div>
