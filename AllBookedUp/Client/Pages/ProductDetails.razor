@@ -21,6 +21,9 @@ else
             <h4 class="price">
                 £@product.Price
             </h4>
+
+            <a href="https://twitter.com/intent/tweet?text=@tweetText" class="twitter-share-button">Tweet</a>
+            
             <button class="btn btn-primary" @onclick="AddToCart">
                 <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart
             </button>
@@ -34,6 +37,8 @@ else
 @code {
     private Product product = null;
     private string message;
+
+    private string tweetText;
 
     [Parameter]
     public int Id { get; set; }
@@ -51,6 +56,8 @@ else
         else
         {
             product = result.Data;
+
+            tweetText = $"I recommend reading the book {product.Title}";
         }
     }
 
