@@ -10,9 +10,9 @@ namespace AllBookedUp.Server.Services.CategoryService
 {
     public class CategoryService : ICategoryService
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CategoryService(DataContext context)
+        public CategoryService(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -12,9 +12,9 @@ namespace AllBookedUp.Client.Services.CategoryService
     {
         private readonly HttpClient _http;
 
-        public CategoryService(HttpClient http)
+        public CategoryService(IHttpClientFactory clientFactory)
         {
-            _http = http;
+            _http = clientFactory.CreateClient("WebAPI.NoAuthenticationClient");
         }
 
         public List<Category> Categories { get; set; } = new List<Category>();

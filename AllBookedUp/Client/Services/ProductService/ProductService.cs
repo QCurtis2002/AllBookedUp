@@ -13,9 +13,9 @@ namespace AllBookedUp.Client.Services.ProductService
 
         private readonly HttpClient _http;
 
-        public ProductService(HttpClient http)
+        public ProductService(IHttpClientFactory clientFactory)
         {
-            _http = http;
+            _http = clientFactory.CreateClient("WebAPI.NoAuthenticationClient");
         }
 
         public List<Product> Products { get; set; } = new List<Product>();
