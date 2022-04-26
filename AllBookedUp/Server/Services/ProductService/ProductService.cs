@@ -11,9 +11,9 @@ namespace AllBookedUp.Server.Services.ProductService
     public class ProductService : IProductService
     {
 
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ProductService(DataContext context)
+        public ProductService(ApplicationDbContext context)
         {
             _context = context;
         }
