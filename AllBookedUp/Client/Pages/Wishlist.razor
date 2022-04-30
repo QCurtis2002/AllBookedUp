@@ -2,6 +2,11 @@
 @inject IWishlistService WishlistService
 @inject ICartService CartService
 @inject IProductService ProductService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AllBookedUp.Shared
+@attribute [Authorize]
 
 <h3>Wishlist</h3>
 
@@ -14,17 +19,17 @@ else
     <div>
         @foreach (var item in cartItems)
         {
-        <div class="container">
-            <div class="image-wrapper">
-                <img src="@item.Image" class="image" />
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@item.Image" class="image" />
+                </div>
+                <div class="name">
+                    <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
+                </div>
+                <button style="padding-right:10px" class="btn-delete" @onclick="@(() => AddItemToCart(item))">Add Item to Cart</button>
+                <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Remove from Wishlist</button>
+                <div class="cart-product-price">£@item.Price</div>
             </div>
-            <div class="name">
-                <h5><a href="/product/@item.ProductId">@item.ProductTitle</a></h5>
-            </div>
-            <button style="padding-right:10px" class="btn-delete" @onclick="@(() => AddItemToCart(item))">Add Item to Cart</button>
-            <button class="btn-delete" @onclick="@(() => DeleteItem(item))">Remove from Wishlist</button>
-            <div class="cart-product-price">£@item.Price</div>
-        </div>
         }
         <div class="cart-product-price">
             Total (@cartItems.Count): £@cartItems.Sum(item => item.Price)
@@ -35,17 +40,21 @@ else
 @code {
     List<CartItem> cartItems = new List<CartItem>();
 
+    public string user;
+
     //Load wishlist items to cartItems
     protected override async Task OnInitializedAsync()
     {
-        cartItems = await WishlistService.GetWishlistItems();
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        user = authstate.User.Identity.Name;
+        cartItems = await WishlistService.GetWishlistItems(user);
     }
 
     //Delete the item from the wishlist
     private async Task DeleteItem(CartItem item)
     {
         await WishlistService.DeleteItem(item);
-        cartItems = await WishlistService.GetWishlistItems();
+        cartItems = await WishlistService.GetWishlistItems(user);
     }
 
     //Add the item from wishlist to cart, removing the item from wishlist after
@@ -56,7 +65,7 @@ else
         await CartService.AddToCart(result.Data);
 
         await WishlistService.DeleteItem(item);
-        cartItems = await WishlistService.GetWishlistItems();
+        cartItems = await WishlistService.GetWishlistItems(user);
     }
 
 }

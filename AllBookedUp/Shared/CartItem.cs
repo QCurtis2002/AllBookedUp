@@ -9,6 +9,7 @@ namespace AllBookedUp.Shared
     public class CartItem
     {
         public int ProductId { get; set; }
+        public string User { get; set; }
         public string ProductTitle { get; set; }
         public decimal Price { get; set; }
         public string Image { get; set; }

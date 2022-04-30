@@ -1,9 +1,10 @@
 ﻿@page "/product/{id:int}"
 @inject IProductService ProductService
 @inject ICartService CartService
-@inject IWishlistService WishlistService 
+@inject IWishlistService WishlistService
 @inject ILocalStorageService LocalStorage
-@inject IToastService ToastService 
+@inject IToastService ToastService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
 
 @if (product == null)
 {
@@ -23,13 +24,18 @@ else
             </h4>
 
             <a href="https://twitter.com/intent/tweet?text=@tweetText" class="twitter-share-button">Tweet</a>
-            
+
             <button class="btn btn-primary" @onclick="AddToCart">
                 <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart
             </button>
-            <button class="btn btn-primary" @onclick="AddToWishlist">
-                <i class="oi oi-book"></i>&nbsp;&nbsp;&nbsp;Add to Wishlist
-            </button>
+            <AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-primary" @onclick="AddToWishlist">
+                        <i class="oi oi-book"></i>&nbsp;&nbsp;&nbsp;Add to Wishlist
+                    </button>
+                </Authorized>
+            </AuthorizeView>
+
         </div>
     </div>
 }
@@ -68,7 +74,9 @@ else
 
     private async Task AddToWishlist()
     {
-        await WishlistService.AddToWishlist(product);
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User.Identity.Name;
+        await WishlistService.AddToWishlist(product, user);
     }
 
 }

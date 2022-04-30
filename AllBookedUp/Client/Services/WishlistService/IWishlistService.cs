@@ -8,8 +8,8 @@ namespace AllBookedUp.Client.Services.WishlistService
 {
     public interface IWishlistService
     {
-        Task AddToWishlist(Product product);
-        Task<List<CartItem>> GetWishlistItems();
+        Task AddToWishlist(Product product, string user);
+        Task<List<CartItem>> GetWishlistItems(string user);
         Task DeleteItem(CartItem item);
     }
 }
