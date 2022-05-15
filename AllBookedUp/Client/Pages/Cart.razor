@@ -1,5 +1,10 @@
 ﻿@page "/cart"
 @inject ICartService CartService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AllBookedUp.Shared
+@attribute [Authorize]
 
 <h3>Shopping Cart</h3>
 
@@ -34,17 +39,21 @@ else
     //Create a list of cartitems to iterate through
     List<CartItem> cartItems = new List<CartItem>();
 
+    public string user;
+
     //Set the list cartItems to the current Items that are in the cart
     protected override async Task OnInitializedAsync()
     {
-        cartItems = await CartService.GetCartItems();
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        user = authstate.User.Identity.Name;
+        cartItems = await CartService.GetCartItems(user);
     }
 
     //Delete the selected item from the cart
     private async Task DeleteItem(CartItem item)
     {
         await CartService.DeleteItem(item);
-        cartItems = await CartService.GetCartItems();
+        cartItems = await CartService.GetCartItems(user);
     }
 
 }

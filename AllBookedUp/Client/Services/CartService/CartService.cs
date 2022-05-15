@@ -31,14 +31,24 @@ namespace AllBookedUp.Client.Services.CartService
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public async Task AddToCart(Product product)
+        public async Task AddToCart(Product product, string user)
         {
-            var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
+            var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
-                cart = new List<Product>();
+                cart = new List<CartItem>();
             }
-            cart.Add(product);
+
+            var cartItem = new CartItem
+            {
+                ProductId = product.Id,
+                ProductTitle = product.Title,
+                Price = product.Price,
+                Image = product.ImageUrl,
+                User = user
+            };
+
+            cart.Add(cartItem);
             await _localStorage.SetItemAsync("cart", cart);
 
             var prod = await _productService.GetProductById(product.Id);
@@ -52,31 +62,35 @@ namespace AllBookedUp.Client.Services.CartService
         /// Get a list of items currently in the cart local storage
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CartItem>> GetCartItems()
+        public async Task<List<CartItem>> GetCartItems(string user)
         {
             var result = new List<CartItem>();
-            var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
-            if (cart == null)
+            var wishlist = await _localStorage.GetItemAsync<List<CartItem>>("cart");
+
+            if (wishlist == null)
             {
                 return result;
             }
 
-            foreach (var item in cart)
+            foreach (var item in wishlist)
             {
-                var product = await _productService.GetProductById(item.Id);
-                var cartItem = new CartItem
+                if (item.User == user)
                 {
-                    ProductId = product.Data.Id,
-                    ProductTitle = product.Data.Title,
-                    Price = product.Data.Price,
-                    Image = product.Data.ImageUrl
-                };
+                    var product = await _productService.GetProductById(item.ProductId);
+                    var cartItem = new CartItem
+                    {
+                        ProductId = product.Data.Id,
+                        ProductTitle = product.Data.Title,
+                        Price = product.Data.Price,
+                        Image = product.Data.ImageUrl
+                    };
 
-                result.Add(cartItem);
+                    result.Add(cartItem);
+                }
+
             }
 
             return result;
-
         }
 
         /// <summary>
@@ -86,13 +100,13 @@ namespace AllBookedUp.Client.Services.CartService
         /// <returns></returns>
         public async Task DeleteItem(CartItem item)
         {
-            var cart = await _localStorage.GetItemAsync<List<Product>>("cart");
+            var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
                 return;
             }
 
-            var cartItem = cart.Find(x => x.Id == item.ProductId);
+            var cartItem = cart.Find(x => x.ProductId == item.ProductId);
             cart.Remove(cartItem);
 
             await _localStorage.SetItemAsync("cart", cart);
