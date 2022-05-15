@@ -62,7 +62,7 @@ else
     {
         var result = await ProductService.GetProductById((item.ProductId));
 
-        await CartService.AddToCart(result.Data);
+        await CartService.AddToCart(result.Data, user);
 
         await WishlistService.DeleteItem(item);
         cartItems = await WishlistService.GetWishlistItems(user);

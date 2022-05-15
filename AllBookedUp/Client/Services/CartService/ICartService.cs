@@ -9,8 +9,8 @@ namespace AllBookedUp.Client.Services.CartService
     public interface ICartService
     {
         event Action OnChange;
-        Task AddToCart(Product product);
-        Task<List<CartItem>> GetCartItems();
+        Task AddToCart(Product product, string user);
+        Task<List<CartItem>> GetCartItems(string user);
         Task DeleteItem(CartItem item);
     }
 }

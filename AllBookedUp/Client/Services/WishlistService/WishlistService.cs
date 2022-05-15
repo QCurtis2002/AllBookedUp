@@ -49,7 +49,7 @@ namespace AllBookedUp.Client.Services.WishlistService
             await _localStorage.SetItemAsync("wishlist", wishlist);
 
             var prod = await _productService.GetProductById(product.Id);
-            //below line may be wrong
+
             _toastService.ShowSuccess(product.Title, "Added to Wishlist:");
 
         }

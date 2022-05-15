@@ -23,13 +23,13 @@ else
                 £@product.Price
             </h4>
 
-            <a href="https://twitter.com/intent/tweet?text=@tweetText" class="twitter-share-button">Tweet</a>
+            <a href="https://twitter.com/intent/tweet?text=@tweetText" class="twitter-share-button"><img src="" />Tweet</a>
 
-            <button class="btn btn-primary" @onclick="AddToCart">
-                <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart
-            </button>
             <AuthorizeView>
                 <Authorized>
+                    <button class="btn btn-primary" @onclick="AddToCart">
+                        <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart
+                    </button>
                     <button class="btn btn-primary" @onclick="AddToWishlist">
                         <i class="oi oi-book"></i>&nbsp;&nbsp;&nbsp;Add to Wishlist
                     </button>
@@ -69,7 +69,9 @@ else
 
     private async Task AddToCart()
     {
-        await CartService.AddToCart(product);
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User.Identity.Name;
+        await CartService.AddToCart(product, user);
     }
 
     private async Task AddToWishlist()
