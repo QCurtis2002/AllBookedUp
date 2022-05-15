@@ -39,6 +39,10 @@ namespace AllBookedUp.Client.Services.CartService
                 cart = new List<CartItem>();
             }
 
+            var individualCart = await GetCartItems(user);
+
+
+
             var cartItem = new CartItem
             {
                 ProductId = product.Id,
@@ -48,11 +52,32 @@ namespace AllBookedUp.Client.Services.CartService
                 User = user
             };
 
-            cart.Add(cartItem);
-            await _localStorage.SetItemAsync("cart", cart);
+            bool check = new bool();
 
-            var prod = await _productService.GetProductById(product.Id);
-            _toastService.ShowSuccess(product.Title, "Added to cart:");
+            foreach (var item in individualCart)
+            {
+                if (cartItem.ProductId == item.ProductId)
+                {
+                    check = true;
+                }
+            }
+
+            if (!check)
+            {
+                cart.Add(cartItem);
+                await _localStorage.SetItemAsync("cart", cart);
+
+                _toastService.ShowSuccess(product.Title, "Added to cart:");
+            }
+            else
+            {
+                _toastService.ShowError(product.Title, "Already Exists in Cart");
+            }
+
+
+
+
+
 
             OnChange.Invoke();
 

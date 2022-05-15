@@ -37,6 +37,8 @@ namespace AllBookedUp.Client.Services.WishlistService
                 wishlist = new List<CartItem>();
             }
 
+
+
             var cartItem = new CartItem
             {
                 ProductId = product.Id,
@@ -45,13 +47,29 @@ namespace AllBookedUp.Client.Services.WishlistService
                 Image = product.ImageUrl,
                 User = user
             };
-            wishlist.Add(cartItem);
-            await _localStorage.SetItemAsync("wishlist", wishlist);
 
-            var prod = await _productService.GetProductById(product.Id);
+            var individualWishlist = await GetWishlistItems(user);
 
-            _toastService.ShowSuccess(product.Title, "Added to Wishlist:");
+            bool check = new bool();
 
+            foreach (var item in individualWishlist)
+            {
+                if (item.ProductId == product.Id)
+                {
+                    check = true;
+                }
+            }
+
+            if (!check)
+            {
+                wishlist.Add(cartItem);
+                await _localStorage.SetItemAsync("wishlist", wishlist);
+                _toastService.ShowSuccess(product.Title, "Added to Wishlist:");
+            }
+            else
+            {
+                _toastService.ShowError(product.Title, "Already Exists in Wishlist");
+            }
         }
 
         /// <summary>
