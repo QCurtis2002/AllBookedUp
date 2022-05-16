@@ -1,10 +1,10 @@
-﻿@inject ISyncLocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorage
 @inject ICartService CartService
 @implements IDisposable
 
 <a href="cart" class="btn btn-info">
     <i class="oi oi-cart"></i>
-    <span class="badge">@GetProductCount()</span>
+    @*<span class="badge">@GetProductCount()</span>*@
 </a>
 
 @code {
