@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllBookedUp.Server", "Server\AllBookedUp.Server.csproj", "{3FA73427-151C-4364-9BA6-AE9A6EA97706}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllBookedUp.Server", "Server\AllBookedUp.Server.csproj", "{3FA73427-151C-4364-9BA6-AE9A6EA97706}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllBookedUp.Client", "Client\AllBookedUp.Client.csproj", "{6CDAAF85-E769-4E48-A48C-CBCF6857BE45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllBookedUp.Client", "Client\AllBookedUp.Client.csproj", "{6CDAAF85-E769-4E48-A48C-CBCF6857BE45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllBookedUp.Shared", "Shared\AllBookedUp.Shared.csproj", "{84329AB4-0CDD-417E-87AE-301CA6077675}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllBookedUp.Shared", "Shared\AllBookedUp.Shared.csproj", "{84329AB4-0CDD-417E-87AE-301CA6077675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

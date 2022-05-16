@@ -31,7 +31,13 @@ else
         <div class="cart-product-price">
             Total (@cartItems.Count): £@cartItems.Sum(item => item.Price)
         </div>
+
+        <a href="Checkout" class="btn btn-success">
+            <span class="oi oi-credit-card"></span>&nbsp; Proceed to Checkout
+        </a>
+
     </div>
+
 }
 
 @code {
