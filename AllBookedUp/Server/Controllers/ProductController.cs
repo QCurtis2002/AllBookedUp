@@ -24,7 +24,7 @@ namespace AllBookedUp.Server.Controllers
         /// Get products from the productService
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("getproducts")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
             var response = await _productService.GetProducts();
