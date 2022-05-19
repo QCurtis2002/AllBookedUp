@@ -68,7 +68,7 @@
                         const element = document.getElementById('paypal-button-container');
                         element.innerHTML = '';
                         element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
+                        download("hello.txt", "This is the content of my file :)");
                         // Or go to another URL:  actions.redirect('thank_you.html');
 
                     });
@@ -78,6 +78,18 @@
                     console.log(err);
                 }
             }).render('#paypal-button-container');
+        }
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
         }
     </script>
 
