@@ -28,27 +28,32 @@ else
             </li>
         }
     </ul>
-    <center class="h3">@ProductService.CurrentPage</center>
+
     <center>
+        @if (ProductService.CurrentPage - 5 > 1)
+        {
+                <a class="btn
+           page-selection"
+                   href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage-5)">-5</a>
+        }
         @if (ProductService.CurrentPage > 1)
         {
-            <a class="btn
+                <a class="btn
            page-selection"
-               href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage-1)">Back</a>
+                   href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage-1)">-1</a>
         }
-
-        @for (int i = 1; i <= ProductService.PageCount; i++)
-        {
-            <a class="btn
-           page-selection
-           @(i == ProductService.CurrentPage ? "btn-info" : "btn-outline-info")"
-               href="/search/@ProductService.LastSearchText/@i">@i</a>
-        }
+        <a class="btn page-selection font-weight-bold">@ProductService.CurrentPage</a>
         @if (ProductService.PageCount > ProductService.CurrentPage)
         {
-            <a class="btn
+                <a class="btn
            page-selection"
-               href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage+1)">Next</a>
+                   href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage+1)">+1</a>
+        }
+        @if (ProductService.PageCount > ProductService.CurrentPage + 5)
+        {
+                <a class="btn
+           page-selection"
+                   href="/search/@ProductService.LastSearchText/@(ProductService.CurrentPage+5)">+5</a>
         }
     </center>
 }

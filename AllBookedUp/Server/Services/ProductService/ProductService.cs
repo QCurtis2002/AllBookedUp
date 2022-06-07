@@ -134,11 +134,6 @@ namespace AllBookedUp.Server.Services.ProductService
             var pageResults = 10f;
             var pageCount = Math.Ceiling((await FindProductsBySearchText(searchText)).Count / pageResults);
 
-            if(pageCount > 10)
-            {
-                pageCount = 10;
-            }
-
             var products = await _context.Products
                             .Where(p => p.Title.ToLower().Contains(searchText.ToLower()))
                             .Skip((page - 1) * (int)pageResults)
